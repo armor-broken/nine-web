@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+1. 创建项目
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+npx create-react-app nine-web --template typescript
+```
 
-## Available Scripts
+2. tsconfig 设置绝对路径地址: "baseUrl": "./src"
+3. 格式化设置（https://prettier.io/docs/en/install.html）
+   - 安装：yarn add --dev --exact prettier
+   - 配置文件：echo {}> .prettierrc.json
+   - git commit 之前格式化，配置：https://prettier.io/docs/en/precommit.html
 
-In the project directory, you can run:
+```
+npx mrm lint-staged
+```
 
-### `yarn start`
+- 解决 ESLint 冲突：
+  - yarn add eslint-config-prettier -D
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "prettier"
+    ]
+  },
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+4. 规范 git 提交：https://github.com/conventional-changelog/commitlint
+   - yarn add @commitlint/{config-conventional,cli}
 
-### `yarn test`
+```
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARMAMS"
+    }
+  },
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 提交规则：https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional
 
-### `yarn build`
+5. MOCK 方案（json-server）
+   https://github.com/typicode/json-server
+   - 全局安装：npm install -g json-server
+   - 项目安装：yarn add json-server -D
+   - 创建文件夹（`__`意思为与项目无关辅助存在）：`__json_server_mock__`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. commitlint
+- # 主要type
+feat:     增加新功能
+fix:      修复bug
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 特殊type
+docs:     只改动了文档相关的内容
+style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号
+build:    构造工具的或者外部依赖的改动，例如webpack，npm
+refactor: 代码重构时使用
+revert:   执行git revert打印的message
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 暂不使用type
+test:     添加测试或者修改现有测试
+perf:     提高性能的改动
+ci:       与CI（持续集成服务）有关的改动
+chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动

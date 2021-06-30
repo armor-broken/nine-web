@@ -5,13 +5,16 @@
  * @LastEditTime: 2021-06-27 22:20:20
  * @LastEditors: RuraLiu
  */
-// import * as React from "react";
 import React from "react";
-
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export interface User {
+  username: string;
+  password: string;
+}
+
 export const Login = () => {
-  const login = (params: { username: string; password: string }) => {
+  const login = (params: User) => {
     fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
