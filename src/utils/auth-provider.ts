@@ -1,4 +1,4 @@
-// 真实环境中，如果使用firebase这种第三方auth服务，本文件不要开发者开发
+// 真实环境中，如果使用firebase这种第三方auth服务，本文件不要开发者开发 
 export interface Admin {
   username: string;
   password: string;
