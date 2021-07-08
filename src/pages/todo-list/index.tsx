@@ -11,6 +11,7 @@ export interface User {
   email: string;
   title: string;
   organization: string;
+  token: string;
 }
 
 const apiUrl = process.env.REACT_APP_API_URL;
